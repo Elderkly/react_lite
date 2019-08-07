@@ -102,12 +102,14 @@ function vDom($parent, oldNode, newNode, index = 0) {
         //  delete
         return $parent.removeChild($currentNode)
     }
+
     //  如果两个元素不等
     if (isNodeChanged(oldNode, newNode)) {
         //  update
         //  替换原来那个元素
         return $parent.replaceChild(generateDom(newNode),$currentNode)
     }
+
     //  props diff
     if (isObjectChanged(oldNode, newNode)) {
         //  过滤props为null的情况
