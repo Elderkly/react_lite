@@ -21,17 +21,17 @@ const types = {
     boolean: '[object Boolean]',
 };
 
-//  判断两个元素是否不同
+//  判断两个虚拟dom是否不同
 function isNodeChanged(node1,node2) {
     //  如果有type值证明是标签元素 判断标签名是否相同
     if (!!node1.type && !!node2.type) {
         return node1.type !== node2.type
     }
-    //  否则元素为文本元素 判断文本是否相等
+    //  否则元素为文本元素 判断文本是否相同
     return node1 !== node2
 }
 
-//  判断两个参数是否不同
+//  判断两个props是否不同
 function isObjectChanged(obj1,obj2) {
     //  如果类型不同返回true
     if (types.get(obj1) !== types.get(obj2)) {
@@ -90,9 +90,11 @@ function generateDom(Vdom) {
     return $el
 }
 
+//  render Fun
 function vDom($parent, oldNode, newNode, index = 0) {
-    //  获取oldNode
+    //  获取oldNode的真实Dom
     const $currentNode = $parent.childNodes[index]
+
     if (!oldNode) {
         //  append
         return $parent.appendChild(generateDom(newNode))
