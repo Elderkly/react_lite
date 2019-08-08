@@ -28,12 +28,13 @@ function _render(vnode) {
     if ( typeof vnode === 'string') {
         return document.createTextNode(vnode)
     }
-    //  函数组件    最后返回真实节点
-    if (typeof vnode.type === 'function') {
+    //  函数组件/基类组件    最后返回真实节点
+    if ( typeof vnode.type === 'function') {
+        //  无论是函数组件还是类组件 统一返回实例
         const component = createComponent(vnode.type, vnode.props)
-
+        //  刷新props同时调用renderComponent生成真实Dom
         setComponentProps(component, vnode.props)
-
+        //  component.base即组件最终得到的真实Dom
         return component.base
     }
 
@@ -107,8 +108,13 @@ function createComponent( component, props ) {
     return inst
 }
 
-/* component.base 用于区分组件是否已存在 */
-//  更新props
+/**
+ * @param {*} component 传入组件实例
+ * @param {*} props 实例携带的props
+ *
+ * component.base 用于区分组件是否已存在
+ * 根据base参数来判断调用componentWillMount事件 / componentWillReceiveProps事件
+ * */
 function setComponentProps(component,props) {
     if (!component.base) {
         if (component.componentWillMount) component.componentWillMount()
@@ -121,6 +127,10 @@ function setComponentProps(component,props) {
     renderComponent(component)
 }
 
+/**
+ * 根据实例构建真实Dom
+ * 并根据base变量触发相应生命周期事件
+ * */
 export function renderComponent( component ){
     let base
     //  获取虚拟dom
@@ -140,6 +150,7 @@ export function renderComponent( component ){
 
     //  刷新节点
     if (component.base && component.base.parentNode) {
+        //  用刷新好的节点替换掉旧的节点
         component.base.parentNode.replaceChild(base, component.base)
     }
 
