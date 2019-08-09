@@ -28,6 +28,7 @@ export function _render(vnode) {
     if ( typeof vnode === 'string') {
         return document.createTextNode(vnode)
     }
+
     //  函数组件/基类组件    最后返回真实节点
     if ( typeof vnode.type === 'function') {
         //  无论是函数组件还是类组件 统一返回实例

@@ -55,15 +55,15 @@ export default class App extends React.Component {
             <div>
                 <Number number={this.state.number}/>
                 <Button addNumberFun={() => this.setState({number: this.state.number + 1 })}/>
-                {
-                    this.state.userObj.map((e,index) => (
-                        <div>
-                            <text>{e.sex === '男' ? '老子' : '老娘'}</text>
-                            <text>叫</text>
-                            <text>{e.name}</text>
-                        </div>
-                    ))
-                }
+                {/*{*/}
+                {/*    this.state.userObj.map((e,index) => (*/}
+                {/*        <div>*/}
+                {/*            <text>{e.sex === '男' ? '老子' : '老娘'}</text>*/}
+                {/*            <text>叫</text>*/}
+                {/*            <text>{e.name}</text>*/}
+                {/*        </div>*/}
+                {/*    ))*/}
+                {/*}*/}
             </div>
         )
     }

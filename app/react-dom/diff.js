@@ -40,7 +40,6 @@ function diff(dom, vnode) {
     //  diff dom
     //  真实dom不存在(表示该节点是新增的) || 真实dom与虚拟dom的标签类型不同 则新建一个dom元素
     if (!dom || dom.nodeName.toLowerCase() !== vnode.type.toLowerCase()) {
-        console.log(vnode)
         out = document.createElement( vnode.type )
 
         if (dom) {
@@ -138,7 +137,6 @@ function diffComponent(dom,vnode) {
  * diff 子元素
  * */
 function diffChildren(dom,vchildren) {
-
     const domChildren = dom.childNodes
     const children = []
 
