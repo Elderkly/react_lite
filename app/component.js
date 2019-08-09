@@ -1,4 +1,4 @@
-import { renderComponent } from './react-dom'
+import { renderComponent } from './react-dom/diff'
 
 export default class Component {
     constructor(props = {}) {
