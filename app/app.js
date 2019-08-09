@@ -14,7 +14,25 @@ export default class App extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            number:0
+            number:0,
+            userObj:[
+                {
+                    name:'张三',
+                    sex:'男',
+                },
+                {
+                    name:'李四',
+                    sex:'女',
+                },
+                {
+                    name:'王五',
+                    sex:'男',
+                },
+                {
+                    name:'赵六',
+                    sex:'男',
+                },
+            ]
         }
     }
     componentWillMount(){
@@ -37,6 +55,15 @@ export default class App extends React.Component {
             <div>
                 <Number number={this.state.number}/>
                 <Button addNumberFun={() => this.setState({number: this.state.number + 1 })}/>
+                {
+                    this.state.userObj.map((e,index) => (
+                        <div>
+                            <text>{e.sex === '男' ? '老子' : '老娘'}</text>
+                            <text>叫</text>
+                            <text>{e.name}</text>
+                        </div>
+                    ))
+                }
             </div>
         )
     }
