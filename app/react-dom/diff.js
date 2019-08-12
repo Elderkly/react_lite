@@ -19,7 +19,9 @@ function diff(dom, vnode) {
         //  如果是文本节点则直接更新文本
         //  nodeType返回节点类型 nodeType === 3表示为文本节点
         if (dom && dom.nodeType === 3) {
-            dom.textContent = dom.textContent !== vnode ? vnode : dom.textContent
+            if (dom.textContent !== vnode) {
+                dom.textContent = vnode;
+            }
         } else {
             //  如果不是文本节点则直接替换原来的节点
             out = document.createTextNode(vnode)
@@ -40,6 +42,7 @@ function diff(dom, vnode) {
     //  diff dom
     //  真实dom不存在(表示该节点是新增的) || 真实dom与虚拟dom的标签类型不同 则新建一个dom元素
     if (!dom || dom.nodeName.toLowerCase() !== vnode.type.toLowerCase()) {
+
         out = document.createElement( vnode.type )
 
         if (dom) {
@@ -221,10 +224,10 @@ function diffChildren(dom,vchildren) {
              *  获取更新后的dom
              * */
 
+            child = diff( child, vchild)
+
             //  这里将jsx函数写法的得到的虚拟dom没有type字段的数组过滤掉 避免编译出<undefined></undefined>的情况
             if (!child && typeof(vchild) === 'object' && !vchild.type) continue
-
-            child = diff( child, vchild)
 
             // 更新DOM
             const f = domChildren[ i ];
