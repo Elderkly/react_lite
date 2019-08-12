@@ -21,4 +21,3 @@ ReactDom.render(
 //         document.querySelector('.app')
 //     )
 // }, 1000 );
-

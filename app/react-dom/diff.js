@@ -59,7 +59,22 @@ function diff(dom, vnode) {
     //  diff children
     //  只要新旧dom其中一个有children就执行diff children函数
     if (vnode.children && vnode.children.length > 0 || (out.childNodes && out.childNodes.length > 0)) {
-        diffChildren(out,vnode.children)
+
+        /*
+         *  过滤掉jsx函数写法编译后的数组
+         *  将函数写法得到的虚拟dom统一编译为跟普通jsx得到的虚拟dom同一层
+         * */
+        vnode.children.map( (e) => {
+
+            if (!e.children && typeof e === 'object') {
+
+                e.map(m => vnode.children.push(m))
+
+            }
+        })
+
+        diffChildren(out, vnode.children)
+
     }
 
     diffAttributes(out,vnode)
@@ -137,6 +152,7 @@ function diffComponent(dom,vnode) {
  * diff 子元素
  * */
 function diffChildren(dom,vchildren) {
+    // console.log(vchildren)
     const domChildren = dom.childNodes
     const children = []
 
@@ -204,6 +220,10 @@ function diffChildren(dom,vchildren) {
              *  传入diff函数进行对比更新
              *  获取更新后的dom
              * */
+
+            //  这里将jsx函数写法的得到的虚拟dom没有type字段的数组过滤掉 避免编译出<undefined></undefined>的情况
+            if (!child && typeof(vchild) === 'object' && !vchild.type) continue
+
             child = diff( child, vchild)
 
             // 更新DOM
