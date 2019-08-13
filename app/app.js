@@ -1,85 +1,29 @@
 import React from './react'
 
-class Number extends React.Component {
-    render() {
-        return <h1>Number: {this.props.number}</h1>
-    }
-}
-function Button(props) {
-    return <button onClick={() => this.props.addNumberFun()}
-    >Add Number</button>
-}
-
 export default class App extends React.Component {
-    constructor(props) {
-        super(props)
+    constructor() {
+        super();
         this.state = {
-            number:0,
-            userObj:[
-                {
-                    name:'张三',
-                    sex:'男',
-                },
-                {
-                    name:'李四',
-                    sex:'女',
-                },
-                {
-                    name:'王五',
-                    sex:'男',
-                },
-                {
-                    name:'赵六',
-                    sex:'男',
-                },
-            ]
+            num: 0
         }
     }
-    componentWillMount(){
-        console.log('componentWillMount')
-    }
-    componentWillReceiveProps(){
-        console.log('componentWillReceiveProps')
-    }
-    componentWillUpdate(){
-        console.log('componentWillUpdate')
-    }
-    componentDieUpdate(){
-        console.log('componentDieUpdate')
-    }
-    componentDieMount(){
-        console.log('componentDieMount')
+    componentDieMount() {
+        for ( let i = 0; i < 100; i++ ) {
+            this.setState( prevState => {
+                console.log(prevState.num)
+                return {
+                    num: prevState.num + 1
+                }
+            });
+            // this.setState({num:this.state.num + 1})
+            // console.log(this.state.num)
+        }
     }
     render() {
         return (
-            <div>
-                <Number number={this.state.number}/>
-                <Button addNumberFun={() => this.setState({number: this.state.number + 1 })}/>
-                {
-                    this.state.userObj.map((e,index) => (
-                        <div>
-                            <text>{e.sex === '男' ? '老子' : '老娘'}</text>
-                            <text>叫</text>
-                            <text>{e.name}</text>
-                        </div>
-                    ))
-                }
-                <div style={{marginTop:20,marginBottom:20}}>
-                    <div>
-                        <div>
-                            {
-                                this.state.userObj.map((e,index) => (
-                                    <div>
-                                        <text>{e.sex === '男' ? '老子' : '老娘'}</text>
-                                        <text>叫</text>
-                                        <text>{e.name}</text>
-                                    </div>
-                                ))
-                            }
-                        </div>
-                    </div>
-                </div>
+            <div className="App">
+                <h1>{ this.state.num }</h1>
             </div>
-        )
+        );
     }
 }

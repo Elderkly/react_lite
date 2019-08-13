@@ -12,7 +12,9 @@ function diff(dom, vnode) {
 
     if ( vnode === undefined || vnode === null || typeof vnode === 'boolean' ) vnode = '';
 
-    if ( typeof vnode === 'number' ) vnode = String( vnode );
+    if ( typeof vnode === 'number' ) {
+        vnode = String( vnode );
+    }
 
     //  diff text node
     if ( typeof vnode === 'string') {

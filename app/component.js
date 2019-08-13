@@ -1,4 +1,4 @@
-import { renderComponent } from './react-dom/diff'
+import enqueueSetState from './setState'
 
 export default class Component {
     constructor(props = {}) {
@@ -7,7 +7,9 @@ export default class Component {
     }
 
     setState(stateChange) {
-        Object.assign(this.state, stateChange)
-        renderComponent(this)
+        // Object.assign(this.state, stateChange)
+        // renderComponent(this)
+
+        enqueueSetState(stateChange, this)
     }
 }
